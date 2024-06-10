@@ -1,0 +1,7 @@
+/* Add this to your styles or CSS file */
+li.active {
+    color: #F90003; /* Set the desired text color for the active link */
+    background-color: #FAEBEB;
+    /* Add any other styles you want for the active link */
+  }
+  

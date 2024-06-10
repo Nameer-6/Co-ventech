@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.App{
+  font-family: "Roboto",sans-serif;
+}
+
+.main{
+  background-image: url('./assets/Hero.png'); /* Adjust the path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.roboto-font {
+  font-family: 'Roboto', sans-serif;
+  /* Add other styles specific to this component */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
