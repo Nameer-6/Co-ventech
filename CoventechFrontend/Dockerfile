@@ -1,25 +1,20 @@
-# Dockerfile for frontend
+# Use a lightweight Node.js image
 FROM node:14-slim
 
+# Set working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json files to the container
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Clear npm cache and install project dependencies
+# Install dependencies
 RUN npm cache clean --force && npm install
 
-# Copy the rest of the application code to the container
+# Copy the rest of the application code
 COPY . .
 
-# Set the environment variable for Node.js memory limit
-ENV NODE_OPTIONS=--max-old-space-size=4096
-
 # Build the application
-RUN npm run build
-
-# Expose the port the app runs on
-EXPOSE 3000
+RUN NODE_OPTIONS="--max-old-space-size=2048" npm run build
 
 # Start the application
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
