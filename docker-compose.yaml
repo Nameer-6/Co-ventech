@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   frontend:
-    build: /usr/src/app  # Path to the frontend directory containing the Dockerfile
+    build: ./CoventechFrontend  # This path should match the frontend directory name
     ports:
       - "3000:3000"  # Frontend available at localhost:3000
     depends_on:
@@ -10,7 +10,7 @@ services:
       - REACT_APP_BACKEND_URL=http://backend:5001
 
   backend:
-    build: /usr/src/app # Path to the backend directory containing the Dockerfile
+    build: ./CoventechBackend  # This path should match the backend directory name
     ports:
       - "5001:5001"  # Backend available at localhost:5001
     environment:
