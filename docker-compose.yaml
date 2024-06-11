@@ -1,18 +1,18 @@
 version: '3.8'
 services:
   frontend:
-    build: ./CoventechFrontend  # Adjust to match the frontend directory path
+    build: ./CoventechFrontend
     ports:
-      - "3000:3000"  # Frontend available at localhost:3000
+      - "3000:3000"
     depends_on:
       - backend
     environment:
       - REACT_APP_BACKEND_URL=http://backend:5001
 
   backend:
-    build: ./CoventechBackend  # Adjust to match the backend directory path
+    build: ./CoventechBackend
     ports:
-      - "5001:5001"  # Backend available at localhost:5001
+      - "5001:5001"
     environment:
       - DB_URI=mongodb://mongo:27017/coventech
       - MAIL_USER=sales@co-ventech.com

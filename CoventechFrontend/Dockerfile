@@ -1,25 +1,17 @@
-# Use the official lightweight Node.js 14 image.
-# https://hub.docker.com/_/node
+# Dockerfile for frontend
 FROM node:14-slim
 
-# Create and change to the app directory.
 WORKDIR /usr/src/app
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
 COPY package*.json ./
 
-# Install dependencies.
+# Set the NODE_OPTIONS environment variable to increase memory limit
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 RUN npm install
 
-# Copy local code to the container image.
 COPY . .
 
-# Build the app.
 RUN npm run build
 
-# Install serve to serve the static site.
-RUN npm install -g serve
-
-# Run the app. CMD can be overridden when deploying to App Engine.
-CMD ["serve", "-s", "build"]
+CMD ["npm", "start"]
