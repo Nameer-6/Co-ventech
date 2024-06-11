@@ -29,7 +29,8 @@ const ContactForm = mongoose.model('ContactForm', {
 });
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: 'http://18.191.61.150:3000',  // Replace with your frontend IP or domain
+    credentials: true,
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));

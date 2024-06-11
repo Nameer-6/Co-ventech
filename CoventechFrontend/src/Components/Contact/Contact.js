@@ -16,22 +16,21 @@ const ContactUs = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
-      const response = await fetch('http://localhost:5001/', {  // Ensure this URL matches your backend endpoint
+      const response = await fetch('http://18.191.61.150:5001/', {  // Ensure this URL matches your backend endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         setIsSent(true);
         setFormData({ Name: '', Email: '', Subject: '', Message: '' }); // Clear the form
@@ -41,9 +40,9 @@ const ContactUs = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-    setIsLoading(false);  // Move this outside to ensure it runs on success or fail
+    setIsLoading(false);
   };
-
+  
   return (
     <div className="flex flex-wrap justify-center mt-10 border border-primary max-w-4xl mx-auto rounded-lg shadow-2xl p-6 bg-white">
       <div className="flex-1 max-w-md px-4">
