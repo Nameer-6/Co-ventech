@@ -1,0 +1,84 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Backend
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16'
+        
+    - name: Install dependencies
+      run: cd CoventechBackend && npm install
+      
+    - name: Run tests
+      run: cd CoventechBackend && npm test
+
+    - name: Build Docker Image for Backend
+      run: cd CoventechBackend && docker build -t yourusername/coventech-backend .
+
+    - name: Push Docker Image for Backend
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker push yourusername/coventech-backend
+
+    - name: Deploy Backend to Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          docker pull yourusername/coventech-backend
+          docker stop backend || true
+          docker rm backend || true
+          docker run --name backend -d -p 5001:5001 yourusername/coventech-backend
+
+  frontend:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Frontend
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+        
+    - name: Install dependencies
+      run: cd CoventechFrontend && npm install
+      
+    - name: Build frontend
+      run: cd CoventechFrontend && npm run build
+
+    - name: Build Docker Image for Frontend
+      run: cd CoventechFrontend && docker build -t nameeruddin6/coventech-frontend .
+
+    - name: Push Docker Image for Frontend
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker push nameeruddin6/coventech-frontend
+
+    - name: Deploy Frontend to Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          docker pull yourusername/coventech-frontend
+          docker stop frontend || true
+          docker rm frontend || true
+          docker run --name frontend -d -p 3000:3000 yourusername/coventech-frontend
