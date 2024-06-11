@@ -73,7 +73,8 @@ app.post('/', asyncHandler(async (req, res) => {
     };
 
     try {
-        await transporter.sendMail(mailOptions);
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent: ', info);
         res.status(200).json({ success: true, message: 'Form data saved and email sent successfully' });
     } catch (error) {
         console.error('Failed to send email:', error);
