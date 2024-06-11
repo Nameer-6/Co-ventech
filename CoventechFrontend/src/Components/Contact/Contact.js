@@ -44,7 +44,7 @@ const ContactUs = () => {
   };
   
   return (
-    <div className="flex flex-wrap justify-center mt-10 border border-primary max-w-4xl mx-auto rounded-lg shadow-2xl p-6 bg-black">
+    <div className="flex flex-wrap justify-center mt-10 border border-primary max-w-4xl mx-auto rounded-lg shadow-2xl p-6 bg-white">
       <div className="flex-1 max-w-md px-4">
         <Heading heading="Connect With Us" />
         <form onSubmit={handleSubmit}>
