@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Heading from '../../UI/Heading';  // Ensure this component is correctly imported hdbuhe
+import Heading from '../../UI/Heading';  // Ensure this component is correctly imported 
 import MapboxMap from './GoogleMap';     // Ensure this component is correctly imported
 import loadingGif from '../../assets/loader.gif';  // Ensure this file path is correct
 
